@@ -18,73 +18,73 @@ install_salt() {
 	cd /tmp
 #	curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com
 #	sh bootstrap-salt.sh -M -N git develop
-	add-apt-repository -y ppa:saltstack/salt
-	apt-get update
-	apt-get install -y salt-master salt-minion salt-ssh salt-cloud salt-doc
+	sudo add-apt-repository -y ppa:saltstack/salt
+	sudo apt-get update
+	sudo apt-get install -y salt-master salt-minion salt-ssh salt-cloud salt-doc
 
 	# Open firewall
-	ufw allow salt
+	sudo ufw allow salt
 
 	# Installed. Now restart servces
-	restart salt-master
-	restart salt-minion
+	sudo restart salt-master
+	sudo restart salt-minion
 
 	# Setup minion keys
-	salt-key --list all
-	salt-call key.finger --local
-	salt-key -y -a ubuntu
+	sudo salt-key --list all
+	sudo salt-call key.finger --local
+	sudo salt-key -y -a ubuntu
 }
 
 install_packages() {
 	# Ubuntu12.04 default apt-get bug
-	rm -rf /var/lib/apt/lists/*
-	apt-get update
+	sudo rm -rf /var/lib/apt/lists/*
+	sudo apt-get update
 	#Install deps
-	apt-get install -y python-software-properties
-	apt-get install -y software-properties-common
-	add-apt-repository -y ppa:fkrull/deadsnakes-python2.7
-	apt-get update
-	apt-get install -y python2.7
+	sudo apt-get install -y python-software-properties
+	sudo apt-get install -y software-properties-common
+	sudo add-apt-repository -y ppa:fkrull/deadsnakes-python2.7
+	sudo apt-get update
+	sudo apt-get install -y python2.7
 	#apt-get -y upgrade
-	apt-get install -y git
-	apt-get install -y msgpack-python python-crypto
+	sudo apt-get install -y git
+	sudo apt-get install -y msgpack-python python-crypto
 	# Config directory for salt
-	mkdir -p /srv/salt
-	mkdir -p /srv/pillar
-	mkdir -p /srv/formulas
-	mkdir -p /srv/salt/prod
-	mkdir -p /srv/salt/dev
-	mkdir -p /srv/salt/qa
+	sudo mkdir -p /srv/salt
+	sudo mkdir -p /srv/pillar
+	sudo mkdir -p /srv/formulas
+	sudo mkdir -p /srv/salt/prod
+	sudo mkdir -p /srv/salt/dev
+	sudo mkdir -p /srv/salt/qa
 	#Pull master/minion cfg
 	cd /srv/salt/
-	git clone https://github.com/Srendi/LumiDeployFlask.git
+	sudo git clone https://github.com/Srendi/LumiDeployFlask.git
 	cd /srv/salt/LumiDeployFlask/
-	git pull
-	mkdir -p /etc/salt/master.d/
-	mkdir -p /etc/salt/minion.d/
-	cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
-	cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/master.d/master.conf /etc/salt/master.d/
-	mkdir -p /etc/nginx/conf.d/
-	cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
+	sudo git pull
+	sudo mkdir -p /etc/salt/master.d/
+	sudo mkdir -p /etc/salt/minion.d/
+	sudo cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
+	sudo cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/master.d/master.conf /etc/salt/master.d/
+	sudo mkdir -p /etc/nginx/conf.d/
+	sudo cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
 }
 
 run_highstate() {
 	echo "Calling salt highstate"
 	cd /srv/salt/LumiDeployFlask/
-	salt '*' state.apply
+	sudo salt '*' state.apply
 }
 
 deploy_app() {
-	mkdir /var/www/
+	sudo mkdir /var/www/
 	cd /var/www/
-	git clone https://github.com/Srendi/LumiFlaskBlog.git
+	sudo git clone https://github.com/Srendi/LumiFlaskBlog.git
 	cd /var/www/LumiFlaskBlog/
-	git pull
+	sudo git pull
 }
 
 start_app() {
 	cd /var/www/LumiFlaskBlog
-	gunicorn -w 4 -b 127.0.0.1:5000 $usedApp &
+	sudo gunicorn -w 4 -b 127.0.0.1:5000 $usedApp &
 }
 
 #Main
