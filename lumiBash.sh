@@ -33,6 +33,9 @@ install_salt() {
 }
 
 install_packages() {
+	# Ubuntu12.04 default apt-get bug
+	rm -rf /var/lib/apt/lists/*
+	apt-get update
 	#Install deps
 	apt-get install python-software-properties
 	apt-get install software-properties-common
