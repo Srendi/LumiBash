@@ -21,14 +21,14 @@ install_salt() {
 	add-apt-repository -y ppa:saltstack/salt
 	apt-get update
 	apt-get install -y salt-master salt-minion salt-ssh salt-cloud salt-doc
-	
+
 	# Open firewall
 	ufw allow salt
-	
+
 	# Installed. Now restart servces
 	restart salt-master
 	restart salt-minion
-	
+
 	# Setup minion keys
 	salt-key --list all
 	salt-call key.finger --local
@@ -59,7 +59,7 @@ install_packages() {
 	mkdir -p /etc/salt/minion.d/
 	cp /srv/salt/LumiDeployFlask/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
 	cp /srv/salt/LumiDeployFlask/files/etc/salt/master.d/master.conf /etc/salt/master.d/
-	
+
 }
 run_highstate() {
 	salt '*' state.apply
