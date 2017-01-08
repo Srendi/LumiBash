@@ -27,9 +27,7 @@ install_salt() {
 	# Setup minion keys
 	salt-key --list all
 	salt-call key.finger --local
-	salt-key -f saltmaster
-	salt-key -f salt-master
-	salt-key -f salt-minion
+	salt-key -y -a ubuntu
 }
 
 install_packages() {
@@ -47,22 +45,29 @@ install_packages() {
 	apt-get install -y msgpack-python python-crypto
 	# Config directory for salt
 	mkdir -p /srv/{salt,pillar}
+	mkdir -p /srv/formulas
+	mkdir -p /srv/salt/{dev,qa,prod}
 	#Pull master/minion cfg
 	cd /srv/salt/
 	git clone https://github.com/Srendi/LumiDeployFlask.git
+	mkdir -p /etc/salt/master.d/
+	mkdir -p /etc/salt/minion.d/
+	cp /srv/salt/LumiDeployFlask/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
+	cp /srv/salt/LumiDeployFlask/files/etc/salt/master.d/master.conf /etc/salt/master.d/
+	
 }
 run_highstate() {
 	salt '*' state.apply
 }
 
 deploy_app() {
-	mkdir /var/www/helloapp
-	cd /var/www/helloapp
+	mkdir /var/www/
+	cd /var/www/
 	git clone https://github.com/Srendi/LumiFlaskBlog.git
 }
 
 start_app() {
-	cd /var/www/helloapp
+	cd /var/www/LumiFlaskBlog
 	gunicorn -w 4 -b 127.0.0.1:5000 hello:app
 }
 
