@@ -65,6 +65,7 @@ install_packages() {
 
 }
 run_highstate() {
+	cd /srv/salt/LumiDeployFlask/
 	salt '*' state.apply
 }
 
@@ -76,7 +77,7 @@ deploy_app() {
 
 start_app() {
 	cd /var/www/LumiFlaskBlog
-	gunicorn -w 4 -b 127.0.0.1:5000 $usedApp
+	gunicorn -w 4 -b 127.0.0.1:5000 $usedApp &
 }
 
 #Main
