@@ -58,6 +58,8 @@ install_packages() {
 	#Pull master/minion cfg
 	cd /srv/salt/
 	git clone https://github.com/Srendi/LumiDeployFlask.git
+	cd /srv/salt/LumiDeployFlask/
+	git pull
 	mkdir -p /etc/salt/master.d/
 	mkdir -p /etc/salt/minion.d/
 	cp /srv/salt/LumiDeployFlask/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
@@ -73,6 +75,8 @@ deploy_app() {
 	mkdir /var/www/
 	cd /var/www/
 	git clone https://github.com/Srendi/LumiFlaskBlog.git
+	cd /var/www/LumiFlaskBlog/
+	git pull
 }
 
 start_app() {
