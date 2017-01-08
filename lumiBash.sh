@@ -1,3 +1,4 @@
+#cloud-boothook
 #/bin/bash
 
 #A bash script that will:
