@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -xe
 # Filename: ec2.sh
 # Author: Gavin Ellis
 # Email: srendi@gmail.com
