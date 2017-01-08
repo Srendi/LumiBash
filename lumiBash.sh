@@ -67,6 +67,7 @@ install_packages() {
 
 }
 run_highstate() {
+	echo "Calling salt highstate"
 	cd /srv/salt/LumiDeployFlask/
 	salt '*' state.apply
 }
