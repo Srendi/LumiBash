@@ -25,8 +25,12 @@ install_salt() {
 	sudo ufw allow salt
 
 	# Installed. Now restart servces
-	sudo restart salt-master
-	sudo restart salt-minion
+	sudo stop salt-minion
+	sudo stop salt-master
+	sleep 3
+	sudo start salt-master
+	sudo start salt-minion
+	sleep 3
 
 	# Setup minion keys
 	sudo salt-key --list all
@@ -69,10 +73,12 @@ install_packages() {
 }
 
 run_highstate() {
-	sudo restart salt-master
+	sudo stop salt-minion
+	sudo stop salt-master
 	sleep 3
-	sudo restart salt-minion
-	sleep 3
+	sudo start salt-master
+	sudo start salt-minion
+	sleep 10
 	echo "Calling salt highstate"
 	cd /srv/salt/LumiDeployFlask/
 	sudo salt '*' state.apply
