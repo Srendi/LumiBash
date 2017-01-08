@@ -8,6 +8,11 @@
 # lumiBash.sh <app> <environment> <num_servers> <server_size>
 # ex: lumiBash.sh hello_world dev 1 t1.micro
 
+#Defaults
+defaultApp="hello:app"
+usedApp=$defaultApp
+usedAppChanged=0
+
 # Install SaltMaster and Salt Minion from latest git
 install_salt() {
 	cd /tmp
@@ -68,7 +73,7 @@ deploy_app() {
 
 start_app() {
 	cd /var/www/LumiFlaskBlog
-	gunicorn -w 4 -b 127.0.0.1:5000 hello:app
+	gunicorn -w 4 -b 127.0.0.1:5000 $usedApp
 }
 
 #Main

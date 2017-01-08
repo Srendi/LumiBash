@@ -55,10 +55,17 @@ case "$#" in
 	fi
 	environment="$2"
 	flaskApp=$"1"
+	if [[ $flaskApp != "hello" ]] ; then
+		echo "Currently only hello app is supported"
+		# To change app name from an appname available in the github repo:
+		# sed 's/usedApp=.*/usedApp=$1/g' lumiBash.sh
+		# sed 's/usedAppChanged=.*/usedAppChanged=1/g' lumiBash.
+		flaskApp="hello"
+	fi
     ;;
   *)
     echo "Usage: " $(basename $0) "<app> <environment> <num_servers> <server_size>"
-	echo "Example: "$(basename $0) hello_world dev 1 t1.micro
+	echo "Example: "$(basename $0) hello dev 1 t1.micro
     exit 1
 esac
 
