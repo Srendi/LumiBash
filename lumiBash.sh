@@ -13,7 +13,7 @@ install_salt() {
 	cd /tmp
 #	curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com
 #	sh bootstrap-salt.sh -M -N git develop
-	add-apt-repository ppa:saltstack/salt
+	add-apt-repository -y ppa:saltstack/salt
 	apt-get update
 	apt-get install -y salt-master salt-minion salt-ssh salt-cloud salt-doc
 	
@@ -39,7 +39,7 @@ install_packages() {
 	#Install deps
 	apt-get install -y python-software-properties
 	apt-get install -y software-properties-common
-	add-apt-repository ppa:fkrull/deadsnakes-python2.7
+	add-apt-repository -y ppa:fkrull/deadsnakes-python2.7
 	apt-get update
 	apt-get install -y python2.7
 	apt-get -y upgrade
