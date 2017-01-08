@@ -1,0 +1,9 @@
+#cloud-config
+packages:
+  - git
+runcmd:
+  - cd ~
+  - git clone https://github.com/Srendi/LumiBash.git
+  - cd ~/LumiBash
+  - sudo chmod a+x ./lumiBash.sh
+  - sudo ./lumiBash.sh

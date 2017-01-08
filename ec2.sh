@@ -22,8 +22,8 @@ defaultKey="Gavin-Lumi-sandbox-key"
 environment="dev"
 flaskApp="hello"
 defaultPlacement="AvailabilityZone=ap-southeast-2b"
-defaultUserData="file://user-data.sh"
-
+#defaultUserData="file://user-data.sh"
+defaultUserData="file://cloud-config"
 # Run instance
 run_instance() {
 	echo "Creating instance, Please wait"
