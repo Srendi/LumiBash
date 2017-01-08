@@ -22,16 +22,22 @@ defaultKey="Gavin-Lumi-sandbox-key"
 defaultSecurityGroup="launch-wizard-2"
 environment="dev"
 flaskApp="hello"
-instanceID=""
 defaultPlacement="AvailabilityZone=ap-southeast-2b"
 
 # Run instance
 run_instance() {
 	echo "Creating instance, Please wait"
-	instanceID=`aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data lumiBash.sh --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId'`
+	instanceIDtmp="$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data ./lumiBash.sh --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')"
+	instanceID="${instanceIDtmp//\"}"
+	echo "Instance id ${instanceID}"
 	while true; do
-		PUBLIC_IP=aws ec2 describe-instances --instance-ids ${instanceID} --query 'Reservations[0].Instances[0].PublicIpAddress'
-		if [[ "${PUBLIC_IP}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then break; fi
+		publicIPtmp="$(aws ec2 describe-instances --instance-ids ${instanceID} --query 'Reservations[0].Instances[0].PublicIpAddress')"
+
+		publicIP="${publicIPtmp//\"}"
+		if [[ "${publicIP}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+			echo "Public IP Address: ${publicIP}"
+			break
+		fi
 		sleep 1
 		echo -n '.'
 	done
