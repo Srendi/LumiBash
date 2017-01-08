@@ -64,6 +64,7 @@ install_packages() {
 	mkdir -p /etc/salt/minion.d/
 	cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
 	cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/master.d/master.conf /etc/salt/master.d/
+	mkdir -p /etc/nginx/conf.d/
 	cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
 }
 
