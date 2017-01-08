@@ -8,13 +8,15 @@
 # lumiBash.sh <app> <environment> <num_servers> <server_size>
 # ex: lumiBash.sh hello_world dev 1 t1.micro
 
-
-
 # Install SaltMaster and Salt Minion from latest git
 install_salt() {
 	cd /tmp
-	curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com
-	sh bootstrap-salt.sh -M -N git develop
+#	curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com
+#	sh bootstrap-salt.sh -M -N git develop
+	add-apt-repository ppa:saltstack/salt
+	apt-get update
+	apt-get install salt-master salt-minion salt-ssh salt-cloud salt-doc
+	
 	# Open firewall
 	ufw allow salt
 	# Installed. Now restart servces
@@ -30,8 +32,13 @@ install_salt() {
 
 install_packages() {
 	#Install deps
+	apt-get install python-software-properties
+	apt-get install software-properties-common
+	add-apt-repository ppa:fkrull/deadsnakes-python2.7
 	apt-get update
+	apt-get install python2.7
 	apt-get -y install git
+#	apt-get -y install msgpack-python python-crypto
 	# Config directory for salt
 	mkdir -p /srv/{salt,pillar}
 	#Pull master/minion cfg
@@ -64,3 +71,4 @@ install_salt
 run_highstate
 deploy_app
 start_app
+-
