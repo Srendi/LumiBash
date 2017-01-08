@@ -19,10 +19,12 @@ install_salt() {
 	
 	# Open firewall
 	ufw allow salt
+	
 	# Installed. Now restart servces
 	restart salt-master
 	restart salt-minion
-	#minion keys
+	
+	# Setup minion keys
 	salt-key --list all
 	salt-call key.finger --local
 	salt-key -f saltmaster
@@ -38,8 +40,8 @@ install_packages() {
 	apt-get update
 	apt-get install python2.7
 	apt-get -y upgrade
-	apt-get -y install git
-#	apt-get -y install msgpack-python python-crypto
+	apt-get install git
+	apt-get install msgpack-python python-crypto
 	# Config directory for salt
 	mkdir -p /srv/{salt,pillar}
 	#Pull master/minion cfg
@@ -57,7 +59,8 @@ deploy_app() {
 }
 
 start_app() {
-gunicorn -w 4 -b 127.0.0.1:5000 hello:app
+	cd /var/www/helloapp
+	gunicorn -w 4 -b 127.0.0.1:5000 hello:app
 }
 
 #Main
@@ -72,4 +75,3 @@ install_salt
 run_highstate
 deploy_app
 start_app
--
