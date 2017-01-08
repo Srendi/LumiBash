@@ -62,8 +62,8 @@ install_packages() {
 	git pull
 	mkdir -p /etc/salt/master.d/
 	mkdir -p /etc/salt/minion.d/
-	cp /srv/salt/LumiDeployFlask/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
-	cp /srv/salt/LumiDeployFlask/files/etc/salt/master.d/master.conf /etc/salt/master.d/
+	cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
+	cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/master.d/master.conf /etc/salt/master.d/
 
 }
 run_highstate() {
