@@ -28,7 +28,7 @@ defaultUserData="user-data.sh"
 run_instance() {
 	echo "Creating instance, Please wait"
 	currentDir=$(pwd)
-	userData="file:///$currentDir/$defaultUserData"
+	userData="file://./$defaultUserData"
 	echo $userData
 	instanceIDtmp="$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data $userData --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')"
 	instanceID="${instanceIDtmp//\"}"
