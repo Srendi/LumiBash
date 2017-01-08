@@ -32,6 +32,7 @@ install_salt() {
 	sudo salt-key --list all
 	sudo salt-call key.finger --local
 	sudo salt-key -y -A
+	sleep 3
 }
 
 install_packages() {
@@ -75,6 +76,7 @@ run_highstate() {
 	echo "Calling salt highstate"
 	cd /srv/salt/LumiDeployFlask/
 	sudo salt '*' state.apply
+	sleep 3
 }
 
 deploy_app() {
