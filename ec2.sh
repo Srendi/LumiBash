@@ -55,7 +55,8 @@ case "$#" in
 	fi
 	environment="$2"
 	flaskApp=$"1"
-	if [[ $flaskApp !~ "hello" ]] ; then
+	if [[ $flaskApp != "hello" ]]
+	then
 		echo "Currently only hello app is supported"
 		# To change app name from an appname available in the github repo:
 		# sed 's/usedApp=.*/usedApp=$1/g' lumiBash.sh
