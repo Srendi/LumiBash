@@ -31,7 +31,7 @@ install_salt() {
 	# Setup minion keys
 	sudo salt-key --list all
 	sudo salt-call key.finger --local
-	sudo salt-key -y -a ubuntu
+	sudo salt-key -y -A
 }
 
 install_packages() {
