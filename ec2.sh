@@ -42,6 +42,7 @@ run_instance() {
 		echo -n '.'
 	done
 	# associate elastic ip
+	sleep 20
 	aws ec2 associate-address --instance-id $instanceID --allocation-id eipalloc-acdc8dc9
 	}
 
