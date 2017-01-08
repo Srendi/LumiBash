@@ -1,5 +1,5 @@
 #/bin/bash
-#A bash script that will:
+# A bash script that will:
 #	Be called on aws ec2 first create to install salt.
 #   Partner script will Launch the EC2 server using aws cli utilities and AMI ami-020a0f61.
 #	Begin the configuration management / bootstrapping of the server using a SaltMaster (preferred) or using a masterless setup.
