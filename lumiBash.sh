@@ -91,6 +91,7 @@ start_app() {
 if [ $(id -u) -ne '0' ]
 then
 	echo "This must be run with root priveleges"
+	touch ~/PleaseRunLumiBashwithRootPrivs
 fi
 
 install_packages
