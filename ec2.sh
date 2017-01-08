@@ -29,8 +29,12 @@ defaultPlacement="AvailabilityZone=ap-southeast-2b"
 run_instance() {
 	echo "Creating instance, Please wait"
 	instanceID=`aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data lumiBash.sh --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId'`
-	sleep 120
-	aws ec2 describe-instances --instance-ids $instanceID --query 'Reservations[0].Instances[0].PublicIpAddress'
+	while true; do
+		PUBLIC_IP=aws ec2 describe-instances --instance-ids ${instanceID} --query 'Reservations[0].Instances[0].PublicIpAddress'
+		if [[ "${PUBLIC_IP}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then break; fi
+		sleep 1
+		echo -n '.'
+	done
 	}
 
 # Main
