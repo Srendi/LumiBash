@@ -15,7 +15,7 @@ install_salt() {
 #	sh bootstrap-salt.sh -M -N git develop
 	add-apt-repository ppa:saltstack/salt
 	apt-get update
-	apt-get install salt-master salt-minion salt-ssh salt-cloud salt-doc
+	apt-get install -y salt-master salt-minion salt-ssh salt-cloud salt-doc
 	
 	# Open firewall
 	ufw allow salt
@@ -37,14 +37,14 @@ install_packages() {
 	rm -rf /var/lib/apt/lists/*
 	apt-get update
 	#Install deps
-	apt-get install python-software-properties
-	apt-get install software-properties-common
+	apt-get install -y python-software-properties
+	apt-get install -y software-properties-common
 	add-apt-repository ppa:fkrull/deadsnakes-python2.7
 	apt-get update
-	apt-get install python2.7
+	apt-get install -y python2.7
 	apt-get -y upgrade
-	apt-get install git
-	apt-get install msgpack-python python-crypto
+	apt-get install -y git
+	apt-get install -y msgpack-python python-crypto
 	# Config directory for salt
 	mkdir -p /srv/{salt,pillar}
 	#Pull master/minion cfg
