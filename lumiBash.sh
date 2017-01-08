@@ -68,13 +68,16 @@ install_packages() {
 }
 
 run_highstate() {
+	sudo restart salt-master
+	sleep 3
+	sudo restart salt-minion
+	sleep 3
 	echo "Calling salt highstate"
 	cd /srv/salt/LumiDeployFlask/
 	sudo salt '*' state.apply
 }
 
 deploy_app() {
-	sudo mkdir /var/www/
 	cd /var/www/
 	sudo git clone https://github.com/Srendi/LumiFlaskBlog.git
 	cd /var/www/LumiFlaskBlog/
