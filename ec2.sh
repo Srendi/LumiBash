@@ -26,7 +26,7 @@ defaultPlacement="AvailabilityZone=ap-southeast-2b"
 # Run instance
 run_instance() {
 	echo "Creating instance, Please wait"
-	instanceIDtmp="$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data file://lumiBash.sh --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')"
+	instanceIDtmp="$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data $(cat ./lumiBash.sh | base64 ) --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')"
 	instanceID="${instanceIDtmp//\"}"
 	echo "Instance id ${instanceID}"
 	while true; do
