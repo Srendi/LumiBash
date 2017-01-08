@@ -22,11 +22,12 @@ defaultKey="Gavin-Lumi-sandbox-key"
 environment="dev"
 flaskApp="hello"
 defaultPlacement="AvailabilityZone=ap-southeast-2b"
+defaultUserData="file://user-data.sh"
 
 # Run instance
 run_instance() {
 	echo "Creating instance, Please wait"
-	instanceIDtmp="$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data "IyEvYmluL3NoDQphcHQtZ2V0IGluc3RhbGwgLXkgZ2l0DQpjZCB+DQpnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL1NyZW5kaS9MdW1pQmFzaC5naXQNCmNkIEx1bWlCYXNoDQpzdWRvIC4vbHVtaUJhc2guc2gNCg0K" --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')"
+	instanceIDtmp="$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data $defaultUserData --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')"
 	instanceID="${instanceIDtmp//\"}"
 	echo "Instance id ${instanceID}"
 	while true; do
