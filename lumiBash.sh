@@ -37,6 +37,7 @@ install_packages() {
 	add-apt-repository ppa:fkrull/deadsnakes-python2.7
 	apt-get update
 	apt-get install python2.7
+	apt-get -y upgrade
 	apt-get -y install git
 #	apt-get -y install msgpack-python python-crypto
 	# Config directory for salt
