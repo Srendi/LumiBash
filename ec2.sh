@@ -23,10 +23,13 @@ defaultSecurityGroup="launch-wizard-2"
 environment="dev"
 flaskApp="hello"
 instanceID=""
+defaultPlacement="AvailabilityZone=ap-southeast-2b"
 
 # Run instance
 run_instance() {
-	instanceID=$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --ssh-key-name $defaultKey --user-data-file ./lumiBash.sh --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')
+	echo "Creating instance, Please wait"
+	instanceID=`aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data lumiBash.sh --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId'`
+	sleep 120
 	aws ec2 describe-instances --instance-ids $instanceID --query 'Reservations[0].Instances[0].PublicIpAddress'
 	}
 
@@ -45,7 +48,7 @@ case "$#" in
 	flaskApp=$"1"
     ;;
   *)
-    echo "Usage: " $(basename $0) <app> <environment> <num_servers> <server_size>
+    echo "Usage: " $(basename $0) "<app> <environment> <num_servers> <server_size>"
 	echo "Example: "$(basename $0) hello_world dev 1 t1.micro
     exit 1
 esac
