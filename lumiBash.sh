@@ -49,9 +49,12 @@ install_packages() {
 	apt-get install -y git
 	apt-get install -y msgpack-python python-crypto
 	# Config directory for salt
-	mkdir -p /srv/{salt,pillar}
+	mkdir -p /srv/salt
+	mkdir -p /srv/pillar
 	mkdir -p /srv/formulas
-	mkdir -p /srv/salt/{dev,qa,prod}
+	mkdir -p /srv/salt/prod
+	mkdir -p /srv/salt/dev
+	mkdir -p /srv/salt/qa
 	#Pull master/minion cfg
 	cd /srv/salt/
 	git clone https://github.com/Srendi/LumiDeployFlask.git
