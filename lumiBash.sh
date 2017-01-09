@@ -92,7 +92,7 @@ install_nginx() {
 	sudo apt-get install -y python-pip python-dev nginx
 	sudo mkdir -p /etc/nginx/conf.d/
 	sudo cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
-	sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
+	sudo ln -s /etc/nginx/sites-available/hello.conf /etc/nginx/sites-enabled/
 	sudo /etc/init.d/nginx restart
 }
 
