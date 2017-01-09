@@ -84,16 +84,17 @@ install_pip() {
 	sudo pip install virtualenv
 	sudo apt-get install -y python-virtualenv
 	sudo pip install Flask
-	pip install Werkzeug
-	pip install Jinja2
+	sudo pip install Werkzeug
+	sudo pip install Jinja2
+	sudo pip install gunicorn
 	sudo pip install --upgrade pip setuptools
-	pip install gunicorn
 }
 
 install_nginx() {
 	sudo apt-get install -y nginx
 	sudo mkdir -p /etc/nginx/conf.d/
 	sudo cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
+	sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 	sudo /etc/init.d/nginx restart
 }
 
@@ -126,7 +127,7 @@ deploy_app() {
 start_app() {
 	logger -s "Gavin: Starting gunicorn"
 	cd /var/www/LumiFlaskBlog/
-	gunicorn -w 4 -b 127.0.0.1:5000 hello:app
+	sudo gunicorn -w 4 -b 127.0.0.1:5000 $usedApp
 	logger -s "Gavin: gunicorn started"
 }
 
