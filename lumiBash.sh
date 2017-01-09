@@ -125,8 +125,8 @@ deploy_app() {
 
 start_app() {
 	logger -s "Gavin: Starting gunicorn"
-	cd /var/www/LumiFlaskBlog
-	sudo gunicorn -w 4 -b 127.0.0.1:5000 $usedApp &
+	cd /var/www/LumiFlaskBlog/
+	sudo gunicorn -w 4 -b 127.0.0.1:5000 hello:app
 	logger -s "Gavin: gunicorn started"
 }
 
