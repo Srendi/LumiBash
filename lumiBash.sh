@@ -51,10 +51,10 @@ install_packages() {
 	sudo apt-get update
 	#Install deps
 	sudo apt-get install -y python-software-properties
-	sudo apt-get install -y software-properties-common
+	sudo apt-get install -y software-properties-common 
 	sudo add-apt-repository -y ppa:fkrull/deadsnakes-python2.7
 	sudo apt-get update
-	sudo apt-get install -y python2.7
+	sudo apt-get install -y python2.7 python-dev
 	#apt-get -y upgrade
 	sudo apt-get install -y git
 	sudo apt-get install -y msgpack-python python-crypto
@@ -84,8 +84,10 @@ install_pip() {
 	sudo pip install virtualenv
 	sudo apt-get install -y python-virtualenv
 	sudo pip install Flask
+	pip install Werkzeug
+	pip install Jinja2
 	sudo pip install --upgrade pip setuptools
-	sudo pip install gunicorn
+	pip install gunicorn
 }
 
 install_nginx() {
