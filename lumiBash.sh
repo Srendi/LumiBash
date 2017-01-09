@@ -20,7 +20,8 @@ install_salt() {
 #	sh bootstrap-salt.sh -M -N git develop
 	sudo add-apt-repository -y ppa:saltstack/salt
 	sudo apt-get update
-	sudo apt-get install -y salt-master salt-minion
+#	sudo apt-get install -y salt-master salt-minion
+	sudo apt-get install -y salt-minion
 	sudo apt-get install -y salt-ssh salt-cloud salt-doc
 	logger -s "Gavin: Salt installled"
 
@@ -29,16 +30,16 @@ install_salt() {
 	logger -s "Gavin: Salt Firewall opened"
 	# Installed. Now restart servces
 	sudo stop salt-minion
-	sudo stop salt-master
+#	sudo stop salt-master
 	sleep 3
-	sudo start salt-master
+#	sudo start salt-master
 	sudo start salt-minion
 	sleep 3
 	logger -s "Gavin: Salt Started"
 	# Setup minion keys
-	sudo salt-key --list all
-	sudo salt-call key.finger --local
-	sudo salt-key -y -A
+#	sudo salt-key --list all
+#	sudo salt-call key.finger --local
+#	sudo salt-key -y -A
 	sleep 3
 	logger -s "Gavin: Salt Minion key accepted"
 }
@@ -83,15 +84,16 @@ install_packages() {
 run_highstate() {
 logger -s "Gavin: Restarting Salt Prior to calling highstate"
 	sudo stop salt-minion
-	sudo stop salt-master
+#	sudo stop salt-master
 	sleep 3
-	sudo start salt-master
+#	sudo start salt-master
 	sudo start salt-minion
 	sleep 10
 	logger -s "Gavin: Calling Salt highstate"
 	echo "Calling salt highstate"
 	cd /srv/salt/LumiDeployFlask/
-	sudo salt '*' state.apply
+#	sudo salt '*' state.apply
+	salt-call --local state.apply
 	sleep 3
 	logger -s "Gavin: Salt highstate applied"
 }
