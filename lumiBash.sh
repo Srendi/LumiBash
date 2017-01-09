@@ -75,10 +75,24 @@ install_packages() {
 	sudo mkdir -p /etc/salt/master.d/
 	sudo mkdir -p /etc/salt/minion.d/
 	sudo cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/minion.d/minion.conf /etc/salt/minion.d/
-	sudo cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/master.d/master.conf /etc/salt/master.d/
+	#sudo cp /srv/salt/LumiDeployFlask/salt/files/etc/salt/master.d/master.conf /etc/salt/master.d/
+	logger -s "Gavin: Package Directories Created"
+}
+
+install_pip() {
+	sudo apt-get install -y python-pip
+	sudo pip install virtualenv
+	sudo apt-get install -y python-virtualenv
+	sudo pip install Flask
+	sudo pip install --upgrade pip setuptools
+	sudo pip install gunicorn
+}
+
+install_nginx() {
+	sudo apt-get install -y nginx
 	sudo mkdir -p /etc/nginx/conf.d/
 	sudo cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
-	logger -s "Gavin: Package Directories Created"
+	sudo /etc/init.d/nginx restart
 }
 
 run_highstate() {
@@ -123,6 +137,8 @@ fi
 
 install_packages
 install_salt
-run_highstate
+install_nginx
+install_pip
+#run_highstate
 deploy_app
 start_app
