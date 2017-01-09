@@ -54,7 +54,7 @@ install_packages() {
 	sudo apt-get install -y software-properties-common 
 	sudo add-apt-repository -y ppa:fkrull/deadsnakes-python2.7
 	sudo apt-get update
-	sudo apt-get install -y python2.7 python-dev
+	sudo apt-get install -y python2.7
 	#apt-get -y upgrade
 	sudo apt-get install -y git
 	sudo apt-get install -y msgpack-python python-crypto
@@ -80,21 +80,19 @@ install_packages() {
 }
 
 install_pip() {
-	sudo apt-get install -y python-pip
 	sudo pip install virtualenv
 	sudo apt-get install -y python-virtualenv
-	sudo pip install Flask
 	sudo pip install Werkzeug
 	sudo pip install Jinja2
-	sudo pip install gunicorn
+	sudo pip install gunicorn flask
 	sudo pip install --upgrade pip setuptools
 }
 
 install_nginx() {
-	sudo apt-get install -y nginx
+	sudo apt-get install -y python-pip python-dev nginx
 	sudo mkdir -p /etc/nginx/conf.d/
 	sudo cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
-	sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+	sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 	sudo /etc/init.d/nginx restart
 }
 
@@ -127,8 +125,9 @@ deploy_app() {
 start_app() {
 	logger -s "Gavin: Starting gunicorn"
 	cd /var/www/LumiFlaskBlog/
-	sudo gunicorn -w 4 -b 127.0.0.1:5000 $usedApp
+	sudo gunicorn -w 4 -b 127.0.0.1:5000 $usedApp &
 	logger -s "Gavin: gunicorn started"
+	sudo /etc/init.d/nginx restart
 }
 
 #Main
