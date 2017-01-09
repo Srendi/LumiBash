@@ -127,7 +127,7 @@ start_app() {
 	cd /var/www/LumiFlaskBlog/
 	sudo gunicorn -w 4 -b 127.0.0.1:5000 $usedApp &
 	logger -s "Gavin: gunicorn started"
-	sudo /etc/init.d/nginx restart
+	sudo service nginx reload
 }
 
 #Main
