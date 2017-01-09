@@ -66,6 +66,7 @@ install_packages() {
 	sudo mkdir -p /srv/salt/prod
 	sudo mkdir -p /srv/salt/dev
 	sudo mkdir -p /srv/salt/qa
+	sudo mkdir -p /var/www
 	#Pull master/minion cfg
 	cd /srv/salt/
 	sudo git clone https://github.com/Srendi/LumiDeployFlask.git
