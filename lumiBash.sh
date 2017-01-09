@@ -14,12 +14,14 @@ usedAppChanged=0
 
 # Install SaltMaster and Salt Minion from latest git
 install_salt() {
+	logger -s "Gavin: Installing Salt"
 	cd /tmp
 #	curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com
 #	sh bootstrap-salt.sh -M -N git develop
 	sudo add-apt-repository -y ppa:saltstack/salt
 	sudo apt-get update
-	sudo apt-get install -y salt-master salt-minion salt-ssh salt-cloud salt-doc
+	sudo apt-get install -y salt-master salt-minion
+	sudo apt-get install -y salt-ssh salt-cloud salt-doc
 	logger -s "Gavin: Salt installled"
 
 	# Open firewall
