@@ -86,7 +86,7 @@ done
 i=1
 for ipaddy in "${IPARRAY[@]}"
 do
-	echo "Please wait a few moments for instance "$i" to be configured"
+	echo "Please wait a few moments for salt to configure instance "$i
 	until $(curl --output /dev/null --silent --head --fail http://$ipaddy:80); do
 		echo -n '.'
 		sleep 1
