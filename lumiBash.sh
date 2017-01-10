@@ -90,7 +90,7 @@ install_pip() {
 }
 
 install_nginx() {
-	sudo apt-get install -y python-pip python-dev nginx
+	sudo apt-get install -y python-pip python-dev nginx links
 	sudo mkdir -p /etc/nginx/conf.d/
 	sudo cp /srv/salt/LumiDeployFlask/nginx/files/etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
 	sudo ln -s /etc/nginx/sites-available/hello.conf /etc/nginx/sites-enabled/
@@ -125,7 +125,7 @@ deploy_app() {
 
 start_app() {
 	logger -s "Gavin: Starting gunicorn"
-	cd /var/www/LumiFlaskBlog/
+	cd /var/www/LumiFlaskBlog/ && 
 	sudo gunicorn -w 4 -b 127.0.0.1:8000 $usedApp &
 	logger -s "Gavin: gunicorn started"
 	sudo service nginx reload

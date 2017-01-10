@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+sudo rm -rf /var/lib/apt/lists/*
 sudo apt-get install -y git
 cd ~
 git clone https://github.com/Srendi/LumiBash.git

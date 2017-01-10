@@ -22,7 +22,8 @@ defaultKey="Gavin-Lumi-sandbox-key"
 environment="dev"
 flaskApp="hello"
 defaultPlacement="AvailabilityZone=ap-southeast-2b"
-defaultUserData="lumiBash.sh"
+#defaultUserData="lumiBash.sh"
+defaultUserData="user-data-masterless.sh"
 
 # Run instance
 run_instance() {
