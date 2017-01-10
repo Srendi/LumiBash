@@ -23,7 +23,7 @@ environment="dev"
 flaskApp="hello"
 defaultPlacement="AvailabilityZone=ap-southeast-2b"
 #defaultUserData="lumiBash.sh"
-defaultUserData="user-data-masterless.sh"
+defaultUserData="user-data-github.sh"
 
 # Run instance
 run_instance() {
