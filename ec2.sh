@@ -2,10 +2,10 @@
 # Filename: ec2.sh
 # Author: Gavin Ellis
 # Email: srendi@gmail.com
-# Description: A wrapper script to instantiate aaws ec2 instances for LumiBlog test. It takes a git repo as user data field to commence saltstack configuration of the instance
+# Description: A wrapper script to instantiate aws ec2 instances for LumiBlog test. It takes a git repo as user data field to commence saltstack configuration of the instance
 # Inputs: <app> (Flask App to run) <environment> (dev,prod...) <num_servers> (Number of ec2 instances to deploy) <server_size> (AWS EC2 instane type, e.g. t1.micro)
 # Outputs: n instances configured with OPsGadget blogs
-# Notes: 
+# Notes:  <app> and <env> not yet implemented
 #
 # Usage:
 # ec2.sh <app> <environment> <num_servers> <server_size>
