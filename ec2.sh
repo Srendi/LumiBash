@@ -24,6 +24,7 @@ flaskApp="hello"
 defaultPlacement="AvailabilityZone=ap-southeast-2b"
 defaultUserData="user-data-github.sh"
 Base64_of_ud_github="IyEvdXNyL2Jpbi9lbnYgYmFzaA0KIyBjZCB+ICYmIHdnZXQgaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1NyZW5kaS9MdW1pQmFzaC9tYXN0ZXIvdXNlci1kYXRhLWdpdGh1Yi5zaCAmJiBjaG1vZCBhK3ggdXNlci1kYXRhLWdpdGh1Yi5zaCAmJiAuL3N1ZG8gdXNlci1kYXRhLWdpdGh1Yi5zaA0KIw0KY2Qgfg0KY3VybCAtTyBodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vU3JlbmRpL0x1bWlCYXNoL21hc3Rlci91c2VyLWRhdGEtbWFzdGVybGVzcy5zaA0KY2htb2QgYSt4IC4vdXNlci1kYXRhLW1hc3Rlcmxlc3Muc2gNCi4vc3VkbyB1c2VyLWRhdGEtbWFzdGVybGVzcy5zaA=="
+IPARRAY=()
 
 # Run instance
 run_instance() {
@@ -41,7 +42,7 @@ run_instance() {
 		publicIP="${publicIPtmp//\"}"
 		if [[ "${publicIP}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
 			echo "Public IP Address: ${publicIP}"
-			echo "http://${publicIP}/"
+			IPARRAY+=(${publicIP})
 			break
 		fi
 		sleep 1
@@ -87,3 +88,11 @@ do
 	sleep 1
 done
 echo "Please wait a few minutes for instaance to be configured"
+until $(curl --output /dev/null --silent --head --fail http://$publicIP:80); do
+	echo -n '.'
+    sleep 1
+done
+for i in "${IPARRAY[@]}"
+do
+   echo "OpsBlog deployed on instance $i: http://${publicIP}/"
+done
