@@ -41,6 +41,7 @@ run_instance() {
 		publicIP="${publicIPtmp//\"}"
 		if [[ "${publicIP}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
 			echo "Public IP Address: ${publicIP}"
+			echo "http://${publicIP}/"
 			break
 		fi
 		sleep 1
@@ -85,3 +86,4 @@ do
 	run_instance
 	sleep 1
 done
+echo "Please wait a few minutes for instaance to be configured"
