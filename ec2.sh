@@ -83,15 +83,16 @@ done
 
 
 # wait until salt configures the instances
-i=1
+iii=1
 for ipaddy in "${IPARRAY[@]}"
 do
-	echo "Please wait a few moments for salt to configure instance "$i
+	echo "Please wait a few moments for salt to configure instance "$iii
 	until $(curl --output /dev/null --silent --head --fail http://$ipaddy:80); do
 		echo -n '.'
 		sleep 1
 	done
 	echo
-	echo "OpsBlog deployed on instance" $i ": http://"$ipaddy"/"
-	i++
+	echo "OpsBlog deployed on instance" $iii ": http://"$ipaddy"/"
+	echo
+	iii+=1
 done
