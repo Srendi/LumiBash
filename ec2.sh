@@ -28,7 +28,7 @@ IPARRAY=()
 
 # Run instance
 run_instance() {
-	echo "Creating instance, Please wait"
+	
 	currentDir=$(pwd)
 	userData="file://./$defaultUserData"
 	#echo $userData
@@ -66,14 +66,6 @@ case "$#" in
 	fi
 	environment="$2"
 	flaskApp=$"1"
-	if [[ $flaskApp != "hello" ]]
-	then
-		echo "Currently only hello app is supported"
-		# To change app name from an appname available in the github repo:
-		# sed 's/usedApp=.*/usedApp=$1/g' lumiBash.sh
-		# sed 's/usedAppChanged=.*/usedAppChanged=1/g' lumiBash.
-		flaskApp="hello"
-	fi
     ;;
   *)
     echo "Usage: " $(basename $0) "<app> <environment> <num_servers> <server_size>"
@@ -84,16 +76,21 @@ esac
 # Create desired number of instances
 for (( c=1; c<=$createCount; c++ ))
 do
+	echo "Creating instance" $c", Please wait"
 	run_instance
 	sleep 1
 done
-echo "Please wait a few minutes for instaance to be configured"
-until $(curl --output /dev/null --silent --head --fail http://$publicIP:80); do
-	echo -n '.'
-    sleep 1
-done
-i=0
+
+
+
+i=1
 for ipaddy in "${IPARRAY[@]}"
 do
-   echo "OpsBlog deployed on instance $i: http://${ipaddy}/"
+	echo "Please wait a few moments for instance "$i" to be configured"
+	until $(curl --output /dev/null --silent --head --fail http://$ipaddy:80); do
+		echo -n '.'
+		sleep 1
+	done
+	echo "\nOpsBlog deployed on instance" $i ": http://"$ipaddy"/"
+	i++
 done
