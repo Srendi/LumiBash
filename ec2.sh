@@ -91,6 +91,7 @@ do
 		echo -n '.'
 		sleep 1
 	done
-	echo "\nOpsBlog deployed on instance" $i ": http://"$ipaddy"/"
+	echo
+	echo "OpsBlog deployed on instance" $i ": http://"$ipaddy"/"
 	i++
 done
