@@ -49,7 +49,7 @@ run_instance() {
 		echo -n '.'
 	done
 	# associate elastic ip
-	sleep 20
+	#sleep 20
 	#eipattached="$(aws ec2 associate-address --instance-id $instanceID --allocation-id eipalloc-acdc8dc9)"  && echo "EIP attached"
 	}
 
@@ -82,7 +82,7 @@ do
 done
 
 
-
+# wait until salt configures the instances
 i=1
 for ipaddy in "${IPARRAY[@]}"
 do
