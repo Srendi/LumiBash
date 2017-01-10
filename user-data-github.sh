@@ -4,4 +4,4 @@
 cd ~
 curl -O https://raw.githubusercontent.com/Srendi/LumiBash/master/user-data-masterless.sh
 chmod a+x ./user-data-masterless.sh
-./sudo user-data-masterless.sh
+sudo ./user-data-masterless.sh
