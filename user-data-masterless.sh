@@ -2,6 +2,9 @@
 
 # Instll Salt
 sudo rm -rf /var/lib/apt/lists/*
+sudo apt-get update
+sudo apt-get install -y python-software-properties
+sudo apt-get install -y software-properties-common 
 sudo add-apt-repository -y ppa:saltstack/salt
 sudo apt-get update
 sudo apt-get install -y salt-minion
