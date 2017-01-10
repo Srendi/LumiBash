@@ -34,7 +34,7 @@ run_instance() {
 	instanceIDtmp="$(aws ec2 run-instances --image-id $defaultAMIID --count $defaultCount --instance-type $defaultInstanceType --placement $defaultPlacement --key-name $defaultKey --user-data $userData --security-groups $defaultSecurityGroup --query 'Instances[0].InstanceId')"
 	instanceID="${instanceIDtmp//\"}"
 	echo "Instance id ${instanceID}"
-	aws ec2 wait --region ap-southeast-2 instance-running --instance-ids $instanceID
+	eipconfigd="$(aws ec2 wait --region ap-southeast-2 instance-running --instance-ids $instanceID)" && echo "EIP attached"
 	while true; do
 		publicIPtmp="$(aws ec2 describe-instances --instance-ids ${instanceID} --query 'Reservations[0].Instances[0].PublicIpAddress')"
 

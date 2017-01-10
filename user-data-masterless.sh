@@ -13,9 +13,10 @@ sleep 3
 sudo start salt-minion
 
 #Pull master/minion cfg
+sudo mkdir -p /srv/salt/
 cd /srv/salt/
 sudo git clone https://github.com/Srendi/LumiDeployFlask.git
 
 #Call saltstate
 cd /srv/salt/LumiDeployFlask/
-salt-call --local state.apply
+sudo salt-call --local state.apply
