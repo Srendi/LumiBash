@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Instll Salt
+# Install Salt
 sudo rm -rf /var/lib/apt/lists/*
 sudo apt-get update
 sudo apt-get install -y python-software-properties
@@ -10,8 +10,6 @@ sudo apt-get update
 sudo apt-get install -y salt-minion
 sudo apt-get install -y salt-ssh salt-cloud salt-doc
 sudo apt-get install -y git
-
-
 
 #Pull master/minion cfg
 sudo mkdir -p /srv/salt/
