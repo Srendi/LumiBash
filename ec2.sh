@@ -48,7 +48,7 @@ run_instance() {
 	done
 	# associate elastic ip
 	sleep 20
-	eipattached="$(aws ec2 associate-address --instance-id $instanceID --allocation-id eipalloc-acdc8dc9)"  && echo "EIP attached"
+	#eipattached="$(aws ec2 associate-address --instance-id $instanceID --allocation-id eipalloc-acdc8dc9)"  && echo "EIP attached"
 	}
 
 # Main
