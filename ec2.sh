@@ -41,7 +41,7 @@ run_instance() {
 
 		publicIP="${publicIPtmp//\"}"
 		if [[ "${publicIP}" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
-			echo "Public IP Address: ${publicIP}"
+			#echo "Public IP Address: ${publicIP}"
 			IPARRAY+=(${publicIP})
 			break
 		fi
