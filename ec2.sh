@@ -92,7 +92,8 @@ until $(curl --output /dev/null --silent --head --fail http://$publicIP:80); do
 	echo -n '.'
     sleep 1
 done
-for i in "${IPARRAY[@]}"
+i=0
+for ipaddy in "${IPARRAY[@]}"
 do
-   echo "OpsBlog deployed on instance $i: http://${publicIP}/"
+   echo "OpsBlog deployed on instance $i: http://${ipaddy}/"
 done
